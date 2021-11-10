@@ -1,0 +1,262 @@
+<%- include('./header'); -%>
+<title>Calendar</title>
+</head>
+<body onload="isLoggedIn()">
+
+    <!-- Jumbotron -->
+<div
+class="p-5 text-center bg-image rounded-3"
+style="
+  background-image: url('https://cdn.shoplightspeed.com/shops/628395/files/15718167/1600x2048x1/sennelier-extra-fine-soft-pastel-turquoise-blue.jpg');
+  height: 350px;
+"
+>
+<div class="mask">
+  <div class="d-flex justify-content-center align-items-center h-100">
+    <div class="text-white">
+      <h1 class="mb-3">Welcome to your Cash Calendar!</h1>
+      <h4 class="mb-3">Here, it's easy to manage your spending.</h4>
+      <h5>View and modify recent transactions, schedule in advance, and analyze spending habits.</h5>
+      <br>
+      <button type="button" class="btn btn btn-light btn-large btn-block" data-toggle="modal" data-target="#Modal1">
+          Add Transaction
+      </button>
+
+    <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="Add Description" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Transaction</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <!-- I made this whole form and I could have used <input type="date"> -->
+                        <form action="/cal/add" method="POST">
+                            <div class="row">
+                                <label for="month_trans"></label>
+                                <select class="form-control col-sm-4" name="month_trans" id="month_trans" onchange="number_of_days()">
+                                    <option value=0>January</option>
+                                    <option value=1>Febuary</option>
+                                    <option value=2>March</option>
+                                    <option value=3>April</option>
+                                    <option value=4>May</option>
+                                    <option value=5>June</option>
+                                    <option value=6>July</option>
+                                    <option value=7>August</option>
+                                    <option value=8>September</option>
+                                    <option value=9>October</option>
+                                    <option value=10>November</option>
+                                    <option value=11>December</option>
+                                </select>
+
+
+                                <label for="year_trans"></label>
+                                <select class="form-control col-sm-4" name="year_trans" id="year_trans" onchange="number_of_days()">
+                                    <option value=1990>1990</option>
+                                    <option value=1991>1991</option>
+                                    <option value=1992>1992</option>
+                                    <option value=1993>1993</option>
+                                    <option value=1994>1994</option>
+                                    <option value=1995>1995</option>
+                                    <option value=1996>1996</option>
+                                    <option value=1997>1997</option>
+                                    <option value=1998>1998</option>
+                                    <option value=1999>1999</option>
+                                    <option value=2000>2000</option>
+                                    <option value=2001>2001</option>
+                                    <option value=2002>2002</option>
+                                    <option value=2003>2003</option>
+                                    <option value=2004>2004</option>
+                                    <option value=2005>2005</option>
+                                    <option value=2006>2006</option>
+                                    <option value=2007>2007</option>
+                                    <option value=2008>2008</option>
+                                    <option value=2009>2009</option>
+                                    <option value=2010>2010</option>
+                                    <option value=2011>2011</option>
+                                    <option value=2012>2012</option>
+                                    <option value=2013>2013</option>
+                                    <option value=2014>2014</option>
+                                    <option value=2015>2015</option>
+                                    <option value=2016>2016</option>
+                                    <option value=2017>2017</option>
+                                    <option value=2018>2018</option>
+                                    <option value=2019>2019</option>
+                                    <option value=2020>2020</option>
+                                    <option value=2021>2021</option>
+                                    <option value=2022>2022</option>
+                                    <option value=2023>2023</option>
+                                    <option value=2024>2024</option>
+                                    <option value=2025>2025</option>
+                                    <option value=2026>2026</option>
+                                    <option value=2027>2027</option>
+                                    <option value=2028>2028</option>
+                                    <option value=2029>2029</option>
+                                    <option value=2030>2030</option>
+                                </select>
+
+                                <label for="date_trans"></label>
+                                <select class="form-control col-sm-4" name="date_trans" id="date_trans">
+
+                                </select>
+                            </div>
+                            <div class="row">
+                                <input type="text" class="form-control col-sm-8" placeholder="Description" id="desc" name="desc" onkeyup="check_fields()">
+                                <input type="number" class="form-control col-sm-2" placeholder="$0.00" id="price" name="price" onkeyup="check_fields()">
+                                <select class="form-control col-sm-2" name="category" id="category" onkeyup="check_fields()">
+                                    <option value="Other">Other</option>
+                                    <option value="Food">Food</option>
+                                    <option value="Clothing">Clothing</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <button class="btn btn-primary col-sm-4" type="submit" id="add_trans" disabled>Add Transaction</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    </div>
+  </div>
+</div>
+<br>
+<br>
+
+<form class="d-flex justify-content-center">
+    <label class="lead mr-2 ml-2" for="month">Jump To: </label>
+    <select class="form-control col-sm-4" name="month" id="month" onchange="jump()">
+        <option value=0>January</option>
+        <option value=1>Febuary</option>
+        <option value=2>March</option>
+        <option value=3>April</option>
+        <option value=4>May</option>
+        <option value=5>June</option>
+        <option value=6>July</option>
+        <option value=7>August</option>
+        <option value=8>September</option>
+        <option value=9>October</option>
+        <option value=10>November</option>
+        <option value=11>December</option>
+    </select>
+
+
+    <label for="year"></label><select class="form-control col-sm-4" name="year" id="year" onchange="jump()">
+    <option value=1990>1990</option>
+    <option value=1991>1991</option>
+    <option value=1992>1992</option>
+    <option value=1993>1993</option>
+    <option value=1994>1994</option>
+    <option value=1995>1995</option>
+    <option value=1996>1996</option>
+    <option value=1997>1997</option>
+    <option value=1998>1998</option>
+    <option value=1999>1999</option>
+    <option value=2000>2000</option>
+    <option value=2001>2001</option>
+    <option value=2002>2002</option>
+    <option value=2003>2003</option>
+    <option value=2004>2004</option>
+    <option value=2005>2005</option>
+    <option value=2006>2006</option>
+    <option value=2007>2007</option>
+    <option value=2008>2008</option>
+    <option value=2009>2009</option>
+    <option value=2010>2010</option>
+    <option value=2011>2011</option>
+    <option value=2012>2012</option>
+    <option value=2013>2013</option>
+    <option value=2014>2014</option>
+    <option value=2015>2015</option>
+    <option value=2016>2016</option>
+    <option value=2017>2017</option>
+    <option value=2018>2018</option>
+    <option value=2019>2019</option>
+    <option value=2020>2020</option>
+    <option value=2021>2021</option>
+    <option value=2022>2022</option>
+    <option value=2023>2023</option>
+    <option value=2024>2024</option>
+    <option value=2025>2025</option>
+    <option value=2026>2026</option>
+    <option value=2027>2027</option>
+    <option value=2028>2028</option>
+    <option value=2029>2029</option>
+    <option value=2030>2030</option>
+</select>
+</form>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<!--<button name="jump" onclick="jump()">Go</button>-->
+</div>
+
+
+<!-- Jumbotron -->
+
+  <div class="container">
+    <br>
+    <br>
+    <div class="card border-info mb-3">
+        <div class="container">
+            <h6 name="analysis" id="analysis" class="card-text" style="color:grey"></h6>
+        </div>
+        <div class="card-body text-dark" id="container">
+        </div>
+  </div>
+</div>
+
+<div>
+<div class="row" position="align-items-center">
+    <div class="container col mt-5">
+        <div class="card">
+            <h3 class="card-header" id="monthAndYear"></h3>
+            <table class="table table-bordered " id="calendar">
+                <br>
+                <div class="form-inline">
+
+                    <button class="btn btn-info btn-outline-light col-sm-6" id="previous" onclick="previous()">Previous</button>
+    
+                    <button class="btn btn-info btn-outline-light col-sm-6" id="next" onclick="next()">Next</button>
+                </div>
+                <br>
+                <thead>
+                <tr>
+                    <th>Sunday</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                </tr>
+                </thead>
+
+                <tbody id="calendar-body">
+
+                </tbody>
+            </table>
+
+            <br/>
+            
+        </div>
+    </div>
+</div>
+<script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
+<script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
+<script src="../resources/js/cal_script.js"></script>
+<script src="../resources/js/header_script.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>

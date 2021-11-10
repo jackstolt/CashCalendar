@@ -1,1 +1,5 @@
 # CashCalendar
+<br/>
+Budgeting is a universal struggle that people face in their everyday lives. Amidst hectic schedules, it can be hard for people to track how much they spend on a daily, weekly, and monthly basis. Cash Calendar aims to resolve the difficulties of budgeting with an interactive, easy, and organized budgeting calendar. Cash Calendar displays a real, live calendar that allows users to add their expenditures each day and even plan future expenditures in advance. Premium Cash Calendar users can also view an analysis tab that breaks down and categorizes their expenditures, so that users can track their spending habits and set more personalized spending goals (example: eat out less). Our application includes a login/sign-up page that allows users to create an account that will save their username and password information as well as their transactions. Users can trust that their added transactions will be safely stored once they log out. Every account also includes a profile page, where users can change their preferred email and password at any time.
+
+Our application is deployed on Heroku and can be accessed here: https://cashcalender.herokuapp.com

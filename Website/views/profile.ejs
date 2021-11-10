@@ -1,0 +1,59 @@
+<%- include('./header'); -%>
+
+    <title>Profile</title>
+  </head>
+  <style>
+    body
+    {
+      background-image: url(../resources/img/cashbg.jpeg);
+    }
+
+    .jumbotron {
+        justify-content: center;
+        margin-top: 100px;
+        margin-left: 100px;
+        border: 0.08em solid rgba(255, 255, 255, 0.644);
+}
+  </style>
+
+  <body onload="isLoggedIn()">
+
+      <form action="/profile" method="POST">
+        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-5 offset-3">
+          <div class="jumbotron" style="text-align:center;">
+
+              <h1 class="display-4">Hello <%= data.name %></h1>
+              <br>
+              <div class="form-row">
+                <label for="user">Username:</label>
+                <input type="text" class="form-control" name="user" id="user" size="42" value="<%= data.username %>" disabled></input>
+              </div>
+              <br>
+              <div class="form-row">
+                <label for="change_password">Password:</label>
+                <input type="text" class="form-control" name="change_password" id="change_password" placeholder="Change Password" size="42" value="<%= data.password %>" onchange="check_fields_profile()"></input>
+              </div>
+              <br>
+              <div class="form-row">
+                <label for="change_email">Email:</label>
+                <input type="email" class="form-control" name="change_email" id="change_email" placeholder="Change Email" size="42" value="<%= data.email %>" onchange="check_fields_profile()"></input>
+              </div>
+              <br>
+              <p class="lead">Would you like a premium account? <input type="radio" id="yes" name="premium" value="true" <% if(data.premium) { %> checked <% } %>  >Yes <p class="lead"><input type="radio" id="no" name="premium" value="false" <% if(!data.premium) { %> checked <% } %>   >No</p></p>
+              <br>
+              <p class="lead">
+                <button class="btn btn-primary" type="submit" id="submit" name="submit">Update</button>
+              </p>
+          </div>
+        </div>
+      </form>
+      
+      
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="../resources/js/profile_script.js"></script>
+  <script src="../resources/js/login_script.js"></script>
+  <script src="../resources/js/header_script.js"></script>
+  </body>
+</html>
